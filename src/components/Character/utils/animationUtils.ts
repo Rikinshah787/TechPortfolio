@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import type { CharacterRefs } from "./character";
 
 export interface AnimationController {

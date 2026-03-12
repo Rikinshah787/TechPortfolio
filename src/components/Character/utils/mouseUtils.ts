@@ -62,7 +62,7 @@ export function createMouseTracker(refs: MouseTrackingRefs) {
     );
   }
 
-  function attach(element: HTMLElement | Document) {
+  function attach(_element: HTMLElement | Document) {
     document.addEventListener("mousemove", onMouseMove);
 
     const landingDiv = document.getElementById("landingDiv");
