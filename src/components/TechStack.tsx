@@ -14,21 +14,16 @@ import {
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
   "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
   "/images/typescript.webp",
   "/images/javascript.webp",
+  "/images/node2.webp",
+  "/images/mysql.webp",
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
+const sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
 
-// Fewer spheres for better runtime performance while keeping the same look.
-// They still reuse the full texture set so the visual variety remains.
-const spheres = [...Array(16)].map(() => ({
+const spheres = [...Array(12)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
 }));
 
@@ -40,6 +35,8 @@ type SphereProps = {
   isActive: boolean;
 };
 
+const _impulseVec = new THREE.Vector3();
+
 function SphereGeo({
   vec = new THREE.Vector3(),
   scale,
@@ -49,21 +46,18 @@ function SphereGeo({
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
 
-  useFrame((_state, delta) => {
+  useFrame((state, delta) => {
     if (!isActive) return;
     delta = Math.min(0.1, delta);
-    const impulse = vec
-      .copy(api.current!.translation())
-      .normalize()
-      .multiply(
-        new THREE.Vector3(
-          -50 * delta * scale,
-          -150 * delta * scale,
-          -50 * delta * scale
-        )
-      );
-
-    api.current?.applyImpulse(impulse, true);
+    const t = api.current!.translation();
+    vec.set(t.x, t.y, t.z).normalize();
+    _impulseVec.set(
+      vec.x * -50 * delta * scale,
+      vec.y * -150 * delta * scale,
+      vec.z * -50 * delta * scale
+    );
+    api.current?.applyImpulse(_impulseVec, true);
+    state.invalidate();
   });
 
   return (
@@ -98,20 +92,22 @@ type PointerProps = {
   isActive: boolean;
 };
 
+const _pointerTarget = new THREE.Vector3();
+
 function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
   const ref = useRef<RapierRigidBody>(null);
 
-  useFrame(({ pointer, viewport }) => {
+  useFrame((state) => {
     if (!isActive) return;
-    const targetVec = vec.lerp(
-      new THREE.Vector3(
-        (pointer.x * viewport.width) / 2,
-        (pointer.y * viewport.height) / 2,
-        0
-      ),
-      0.2
+    const { pointer, viewport } = state;
+    _pointerTarget.set(
+      (pointer.x * viewport.width) / 2,
+      (pointer.y * viewport.height) / 2,
+      0
     );
-    ref.current?.setNextKinematicTranslation(targetVec);
+    vec.lerp(_pointerTarget, 0.2);
+    ref.current?.setNextKinematicTranslation(vec);
+    state.invalidate();
   });
 
   return (
@@ -131,27 +127,34 @@ const TechStack = () => {
   const [enableAO, setEnableAO] = useState(false);
 
   useEffect(() => {
+    const workEl = document.getElementById("work");
+    let ticking = false;
     const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
+      if (!ticking && workEl) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          const threshold = workEl.getBoundingClientRect().top;
+          setIsActive((window.scrollY || document.documentElement.scrollTop) > threshold);
+          ticking = false;
+        });
+      }
     };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
+    const onNavClick = () => {
+      let count = 0;
+      const id = setInterval(() => {
+        handleScroll();
+        if (++count >= 50) clearInterval(id);
+      }, 20);
+    };
+    document.querySelectorAll(".header a").forEach((el) => {
+      (el as HTMLAnchorElement).addEventListener("click", onNavClick);
     });
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.querySelectorAll(".header a").forEach((el) => {
+        (el as HTMLAnchorElement).removeEventListener("click", onNavClick);
+      });
     };
   }, []);
   const materials = useMemo(() => {
@@ -182,6 +185,7 @@ const TechStack = () => {
 
       <Canvas
         shadows
+        frameloop="demand"
         dpr={[1, 1.5]}
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
@@ -195,7 +199,7 @@ const TechStack = () => {
           angle={0.2}
           color="white"
           castShadow
-          shadow-mapSize={[512, 512]}
+          shadow-mapSize={[256, 256]}
         />
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>

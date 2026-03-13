@@ -6,9 +6,9 @@ interface MouseState {
 }
 
 interface MouseTrackingRefs {
-  headGroup: THREE.Group;
-  leftPupil: THREE.Mesh;
-  rightPupil: THREE.Mesh;
+  headGroup?: THREE.Group;
+  leftPupil?: THREE.Mesh;
+  rightPupil?: THREE.Mesh;
 }
 
 export function createMouseTracker(refs: MouseTrackingRefs) {
@@ -38,25 +38,29 @@ export function createMouseTracker(refs: MouseTrackingRefs) {
   }
 
   function update() {
+    const head = refs.headGroup;
+    if (!head) return;
     if (window.scrollY > 300) return;
 
     smoothMouse.x = THREE.MathUtils.lerp(smoothMouse.x, mouse.x, SMOOTH_FACTOR);
     smoothMouse.y = THREE.MathUtils.lerp(smoothMouse.y, mouse.y, SMOOTH_FACTOR);
 
-    // Pupil tracking
-    refs.leftPupil.position.x = smoothMouse.x * PUPIL_RANGE;
-    refs.leftPupil.position.y = smoothMouse.y * PUPIL_RANGE;
-    refs.rightPupil.position.x = smoothMouse.x * PUPIL_RANGE;
-    refs.rightPupil.position.y = smoothMouse.y * PUPIL_RANGE;
+    // Pupil tracking (only when we have explicit pupil meshes)
+    if (refs.leftPupil && refs.rightPupil) {
+      refs.leftPupil.position.x = smoothMouse.x * PUPIL_RANGE;
+      refs.leftPupil.position.y = smoothMouse.y * PUPIL_RANGE;
+      refs.rightPupil.position.x = smoothMouse.x * PUPIL_RANGE;
+      refs.rightPupil.position.y = smoothMouse.y * PUPIL_RANGE;
+    }
 
     // Subtle head rotation toward cursor
-    refs.headGroup.rotation.y = THREE.MathUtils.lerp(
-      refs.headGroup.rotation.y,
+    head.rotation.y = THREE.MathUtils.lerp(
+      head.rotation.y,
       smoothMouse.x * HEAD_RANGE,
       0.05
     );
-    refs.headGroup.rotation.x = THREE.MathUtils.lerp(
-      refs.headGroup.rotation.x,
+    head.rotation.x = THREE.MathUtils.lerp(
+      head.rotation.x,
       -smoothMouse.y * HEAD_RANGE * 0.5,
       0.05
     );

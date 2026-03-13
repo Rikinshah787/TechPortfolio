@@ -24,6 +24,19 @@ const Landing = ({ children }: PropsWithChildren) => {
               <div className="landing-h2-info">Engineer</div>
               <div className="landing-h2-info-1">Builder</div>
             </h2>
+            <button
+              className="landing-chat-cta"
+              type="button"
+              data-cursor="disable"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new Event("rikin-open-chat"));
+                }
+              }}
+            >
+              <span className="landing-chat-dot" />
+              <span>Ask my avatar or scroll!</span>
+            </button>
           </div>
         </div>
         {children}
