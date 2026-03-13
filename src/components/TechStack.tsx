@@ -26,7 +26,9 @@ const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
-const spheres = [...Array(30)].map(() => ({
+// Fewer spheres for better runtime performance while keeping the same look.
+// They still reuse the full texture set so the visual variety remains.
+const spheres = [...Array(16)].map(() => ({
   scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
 }));
 
@@ -126,6 +128,7 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const [enableAO, setEnableAO] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -166,12 +169,20 @@ const TechStack = () => {
     );
   }, []);
 
+  useEffect(() => {
+    // Enable heavier post-processing only on reasonably capable devices.
+    const cores = (navigator as any).hardwareConcurrency ?? 4;
+    const dpr = window.devicePixelRatio ?? 1;
+    setEnableAO(cores >= 6 && dpr <= 2);
+  }, []);
+
   return (
     <div className="techstack">
       <h2> My Techstack</h2>
 
       <Canvas
         shadows
+        dpr={[1, 1.5]}
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
@@ -203,9 +214,11 @@ const TechStack = () => {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#001a14" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
+        {enableAO && (
+          <EffectComposer enableNormalPass={false}>
+            <N8AO color="#001a14" aoRadius={2} intensity={1.0} />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );
