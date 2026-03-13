@@ -1,4 +1,5 @@
 import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { TbDownload } from "react-icons/tb";
 import "./styles/Contact.css";
 
 const Contact = () => {
@@ -10,8 +11,8 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:rikinshah787@gmail.com" data-cursor="disable">
-                rikinshah787@gmail.com
+              <a href="mailto:rshah88@asu.edu" data-cursor="disable">
+                rshah88@asu.edu
               </a>
             </p>
           </div>
@@ -40,6 +41,17 @@ const Contact = () => {
               className="contact-social"
             >
               Twitter <MdArrowOutward />
+            </a>
+          </div>
+          <div className="contact-box">
+            <a
+              href="/videos/resume_20260303_144417_928013_7cce5aaa.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="disable"
+              className="contact-resume"
+            >
+              <TbDownload /> Download Resume
             </a>
           </div>
           <div className="contact-box">

@@ -6,7 +6,10 @@ export interface AnimationController {
 }
 
 export function setupAnimations(refs: CharacterRefs): AnimationController {
-  const { headGroup, leftEyelid, rightEyelid, torso } = refs;
+  const headGroup = refs.headGroup ?? refs.character;
+  const torso = refs.torso ?? refs.character;
+  const leftEyelid = refs.leftEyelid;
+  const rightEyelid = refs.rightEyelid;
 
   let nextBlinkTime = randomBlinkDelay();
   let blinkPhase: "idle" | "closing" | "opening" = "idle";
@@ -53,26 +56,28 @@ export function setupAnimations(refs: CharacterRefs): AnimationController {
       blinkTimer = 0;
     }
 
-    if (blinkPhase === "closing") {
-      const progress = Math.min(blinkTimer / BLINK_CLOSE_DURATION, 1);
-      leftEyelid.scale.y = progress;
-      rightEyelid.scale.y = progress;
-      if (progress >= 1) {
-        blinkPhase = "opening";
-        blinkTimer = 0;
+    if (leftEyelid && rightEyelid) {
+      if (blinkPhase === "closing") {
+        const progress = Math.min(blinkTimer / BLINK_CLOSE_DURATION, 1);
+        leftEyelid.scale.y = progress;
+        rightEyelid.scale.y = progress;
+        if (progress >= 1) {
+          blinkPhase = "opening";
+          blinkTimer = 0;
+        }
       }
-    }
 
-    if (blinkPhase === "opening") {
-      const progress = Math.min(blinkTimer / BLINK_OPEN_DURATION, 1);
-      leftEyelid.scale.y = 1 - progress;
-      rightEyelid.scale.y = 1 - progress;
-      if (progress >= 1) {
-        blinkPhase = "idle";
-        blinkTimer = 0;
-        nextBlinkTime = randomBlinkDelay();
-        leftEyelid.scale.y = 0;
-        rightEyelid.scale.y = 0;
+      if (blinkPhase === "opening") {
+        const progress = Math.min(blinkTimer / BLINK_OPEN_DURATION, 1);
+        leftEyelid.scale.y = 1 - progress;
+        rightEyelid.scale.y = 1 - progress;
+        if (progress >= 1) {
+          blinkPhase = "idle";
+          blinkTimer = 0;
+          nextBlinkTime = randomBlinkDelay();
+          leftEyelid.scale.y = 0;
+          rightEyelid.scale.y = 0;
+        }
       }
     }
   }

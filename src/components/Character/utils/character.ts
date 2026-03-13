@@ -1,126 +1,53 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three-stdlib";
 
 export interface CharacterRefs {
   character: THREE.Group;
-  headGroup: THREE.Group;
-  leftPupil: THREE.Mesh;
-  rightPupil: THREE.Mesh;
-  leftEyelid: THREE.Mesh;
-  rightEyelid: THREE.Mesh;
-  leftBrow: THREE.Mesh;
-  rightBrow: THREE.Mesh;
-  torso: THREE.Mesh;
+  headGroup?: THREE.Group;
+  leftPupil?: THREE.Mesh;
+  rightPupil?: THREE.Mesh;
+  leftEyelid?: THREE.Mesh;
+  rightEyelid?: THREE.Mesh;
+  leftBrow?: THREE.Mesh;
+  rightBrow?: THREE.Mesh;
+  torso?: THREE.Object3D;
 }
+
+const AVATAR_URL = "/models/a879efc698e76f49a2e08e8f4a6ba89f.glb";
 
 export function createRikinCharacter(): CharacterRefs {
   const character = new THREE.Group();
   character.name = "rikin-character";
 
-  const gradientTexture = createGradientTexture();
-
-  const skinColor = 0xc68642;
-  const hairColor = 0x1a1a1a;
-  const hoodieColor = 0x10b981;
-  const pantsColor = 0x1e293b;
-
-  // HEAD
-  const headGroup = new THREE.Group();
-  headGroup.name = "head";
-
-  const headGeo = new THREE.SphereGeometry(0.35, 32, 32);
-  const headMesh = new THREE.Mesh(
-    headGeo,
-    new THREE.MeshToonMaterial({ color: skinColor, gradientMap: gradientTexture })
+  const loader = new GLTFLoader();
+  loader.load(
+    AVATAR_URL,
+    (gltf) => {
+      const model = gltf.scene;
+      model.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          const mesh = obj as THREE.Mesh;
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+        }
+      });
+      model.scale.setScalar(1.6);
+      model.position.set(0, -0.9, 0);
+      character.add(model);
+    },
+    undefined,
+    (error) => {
+      console.error("Failed to load avatar model", error);
+    }
   );
-  headMesh.scale.set(1, 1.1, 0.95);
-  headGroup.add(headMesh);
 
-  // HAIR
-  const hairGroup = createHair(hairColor, gradientTexture);
-  hairGroup.position.y = 0.15;
-  headGroup.add(hairGroup);
-
-  // EYES
-  const { leftEye, rightEye, leftPupil, rightPupil } = createEyes();
-  leftEye.position.set(-0.12, 0.05, 0.28);
-  rightEye.position.set(0.12, 0.05, 0.28);
-  headGroup.add(leftEye);
-  headGroup.add(rightEye);
-
-  // EYELIDS (for blink animation — hidden by default)
-  const leftEyelid = createEyelid(skinColor);
-  leftEyelid.position.set(-0.12, 0.05, 0.29);
-  leftEyelid.scale.y = 0;
-  headGroup.add(leftEyelid);
-
-  const rightEyelid = createEyelid(skinColor);
-  rightEyelid.position.set(0.12, 0.05, 0.29);
-  rightEyelid.scale.y = 0;
-  headGroup.add(rightEyelid);
-
-  // EYEBROWS
-  const leftBrow = createEyebrow(hairColor);
-  leftBrow.position.set(-0.12, 0.16, 0.3);
-  leftBrow.rotation.z = 0.1;
-  headGroup.add(leftBrow);
-
-  const rightBrow = createEyebrow(hairColor);
-  rightBrow.position.set(0.12, 0.16, 0.3);
-  rightBrow.rotation.z = -0.1;
-  headGroup.add(rightBrow);
-
-  // NOSE
-  const noseGeo = new THREE.SphereGeometry(0.04, 16, 16);
-  const noseMesh = new THREE.Mesh(
-    noseGeo,
-    new THREE.MeshToonMaterial({ color: 0xb07535, gradientMap: gradientTexture })
-  );
-  noseMesh.position.set(0, -0.02, 0.33);
-  noseMesh.scale.set(1, 0.8, 0.6);
-  headGroup.add(noseMesh);
-
-  // SMILE
-  const smile = createSmile();
-  smile.position.set(0, -0.12, 0.3);
-  headGroup.add(smile);
-
-  // BEARD
-  const beard = createBeard(hairColor, gradientTexture);
-  headGroup.add(beard);
-
-  // EARS
-  const leftEar = createEar(skinColor, gradientTexture);
-  leftEar.position.set(-0.33, 0.02, 0);
-  headGroup.add(leftEar);
-
-  const rightEar = createEar(skinColor, gradientTexture);
-  rightEar.position.set(0.33, 0.02, 0);
-  rightEar.scale.x = -1;
-  headGroup.add(rightEar);
-
-  headGroup.position.y = 0.95;
-  character.add(headGroup);
-
-  // BODY
-  const { bodyGroup, torso } = createBody(
-    hoodieColor,
-    pantsColor,
-    skinColor,
-    gradientTexture
-  );
-  character.add(bodyGroup);
-
-  character.position.y = -0.8;
+  // For existing animation/mouse utils, fall back to animating the whole group.
+  const headGroup = character;
+  const torso = character;
 
   return {
     character,
     headGroup,
-    leftPupil,
-    rightPupil,
-    leftEyelid,
-    rightEyelid,
-    leftBrow,
-    rightBrow,
     torso,
   };
 }
@@ -190,17 +117,17 @@ function createEyes() {
   const createSingleEye = () => {
     const eyeGroup = new THREE.Group();
 
-    // Sclera
-    const scleraGeo = new THREE.SphereGeometry(0.065, 24, 24);
+    // Sclera (larger, more cartoony)
+    const scleraGeo = new THREE.SphereGeometry(0.085, 24, 24);
     const sclera = new THREE.Mesh(
       scleraGeo,
       new THREE.MeshBasicMaterial({ color: 0xffffff })
     );
-    sclera.scale.set(1, 1.2, 0.5);
+    sclera.scale.set(1.05, 1.3, 0.5);
     eyeGroup.add(sclera);
 
     // Iris
-    const irisGeo = new THREE.SphereGeometry(0.035, 24, 24);
+    const irisGeo = new THREE.SphereGeometry(0.045, 24, 24);
     const iris = new THREE.Mesh(
       irisGeo,
       new THREE.MeshBasicMaterial({ color: 0x3d1f00 })
@@ -209,7 +136,7 @@ function createEyes() {
     eyeGroup.add(iris);
 
     // Pupil
-    const pupilGeo = new THREE.SphereGeometry(0.018, 16, 16);
+    const pupilGeo = new THREE.SphereGeometry(0.024, 16, 16);
     const pupil = new THREE.Mesh(
       pupilGeo,
       new THREE.MeshBasicMaterial({ color: 0x000000 })
@@ -219,7 +146,7 @@ function createEyes() {
     eyeGroup.add(pupil);
 
     // Highlight
-    const highlightGeo = new THREE.SphereGeometry(0.008, 8, 8);
+    const highlightGeo = new THREE.SphereGeometry(0.011, 8, 8);
     const highlight = new THREE.Mesh(
       highlightGeo,
       new THREE.MeshBasicMaterial({ color: 0xffffff })
@@ -333,13 +260,13 @@ function createBody(
 ): { bodyGroup: THREE.Group; torso: THREE.Mesh } {
   const bodyGroup = new THREE.Group();
 
-  // Torso (hoodie)
-  const torsoGeo = new THREE.CylinderGeometry(0.25, 0.22, 0.5, 16);
+  // Torso (hoodie) - slightly wider, a bit shorter
+  const torsoGeo = new THREE.CylinderGeometry(0.29, 0.27, 0.45, 18);
   const torso = new THREE.Mesh(
     torsoGeo,
     new THREE.MeshToonMaterial({ color: hoodieColor, gradientMap })
   );
-  torso.position.y = 0.45;
+  torso.position.y = 0.4;
   torso.name = "torso";
   bodyGroup.add(torso);
 
@@ -351,12 +278,12 @@ function createBody(
     hoodGeo,
     new THREE.MeshToonMaterial({ color: hoodieColor, gradientMap })
   );
-  hood.position.set(0, 0.7, -0.15);
+  hood.position.set(0, 0.68, -0.15);
   hood.rotation.x = 0.3;
   bodyGroup.add(hood);
 
   // Hoodie front pocket detail (subtle darker rectangle)
-  const pocketGeo = new THREE.PlaneGeometry(0.18, 0.08);
+  const pocketGeo = new THREE.PlaneGeometry(0.22, 0.09);
   const pocket = new THREE.Mesh(
     pocketGeo,
     new THREE.MeshToonMaterial({
@@ -365,7 +292,7 @@ function createBody(
       side: THREE.FrontSide,
     })
   );
-  pocket.position.set(0, 0.32, 0.225);
+  pocket.position.set(0, 0.3, 0.235);
   bodyGroup.add(pocket);
 
   // Hoodie strings
@@ -380,53 +307,53 @@ function createBody(
   });
 
   // Arms
-  const armGeo = new THREE.CylinderGeometry(0.06, 0.05, 0.35, 12);
+  const armGeo = new THREE.CylinderGeometry(0.065, 0.055, 0.32, 12);
   const armMat = new THREE.MeshToonMaterial({ color: hoodieColor, gradientMap });
 
   const leftArm = new THREE.Mesh(armGeo, armMat);
-  leftArm.position.set(-0.3, 0.4, 0);
+  leftArm.position.set(-0.3, 0.37, 0);
   leftArm.rotation.z = 0.2;
   bodyGroup.add(leftArm);
 
   const rightArm = new THREE.Mesh(armGeo, armMat);
-  rightArm.position.set(0.3, 0.4, 0);
+  rightArm.position.set(0.3, 0.37, 0);
   rightArm.rotation.z = -0.2;
   bodyGroup.add(rightArm);
 
   // Hands
-  const handGeo = new THREE.SphereGeometry(0.045, 12, 12);
+  const handGeo = new THREE.SphereGeometry(0.05, 12, 12);
   const handMat = new THREE.MeshToonMaterial({ color: skinColor, gradientMap });
 
   const leftHand = new THREE.Mesh(handGeo, handMat);
-  leftHand.position.set(-0.35, 0.2, 0);
+  leftHand.position.set(-0.35, 0.19, 0);
   bodyGroup.add(leftHand);
 
   const rightHand = new THREE.Mesh(handGeo, handMat);
-  rightHand.position.set(0.35, 0.2, 0);
+  rightHand.position.set(0.35, 0.19, 0);
   bodyGroup.add(rightHand);
 
   // Legs
-  const legGeo = new THREE.CylinderGeometry(0.07, 0.06, 0.35, 12);
+  const legGeo = new THREE.CylinderGeometry(0.08, 0.07, 0.28, 12);
   const legMat = new THREE.MeshToonMaterial({ color: pantsColor, gradientMap });
 
   const leftLeg = new THREE.Mesh(legGeo, legMat);
-  leftLeg.position.set(-0.1, 0.02, 0);
+  leftLeg.position.set(-0.1, -0.02, 0);
   bodyGroup.add(leftLeg);
 
   const rightLeg = new THREE.Mesh(legGeo, legMat);
-  rightLeg.position.set(0.1, 0.02, 0);
+  rightLeg.position.set(0.1, -0.02, 0);
   bodyGroup.add(rightLeg);
 
   // Shoes
-  const shoeGeo = new THREE.BoxGeometry(0.08, 0.04, 0.12);
-  const shoeMat = new THREE.MeshToonMaterial({ color: 0x2d2d2d, gradientMap });
+  const shoeGeo = new THREE.BoxGeometry(0.11, 0.05, 0.16);
+  const shoeMat = new THREE.MeshToonMaterial({ color: 0x111111, gradientMap });
 
   const leftShoe = new THREE.Mesh(shoeGeo, shoeMat);
-  leftShoe.position.set(-0.1, -0.16, 0.02);
+  leftShoe.position.set(-0.1, -0.18, 0.04);
   bodyGroup.add(leftShoe);
 
   const rightShoe = new THREE.Mesh(shoeGeo, shoeMat);
-  rightShoe.position.set(0.1, -0.16, 0.02);
+  rightShoe.position.set(0.1, -0.18, 0.04);
   bodyGroup.add(rightShoe);
 
   return { bodyGroup, torso };

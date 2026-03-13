@@ -11,6 +11,7 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 
 const TechStack = lazy(() => import("./TechStack"));
+const ChatWidget = lazy(() => import("./ChatWidget"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
@@ -18,21 +19,29 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
     const resizeHandler = () => {
-      setSplitText();
-      setIsDesktopView(window.innerWidth > 1024);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsDesktopView(window.innerWidth > 1024);
+        setSplitText();
+      }, 150);
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener("resize", resizeHandler);
     };
-  }, [isDesktopView]);
+  }, []);
 
   return (
     <div className="container-main">
       <Cursor />
       <Navbar />
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
       <SocialIcons />
       {isDesktopView && children}
       <div id="smooth-wrapper">

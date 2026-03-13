@@ -46,6 +46,23 @@ a.contact-social {
   gap: 10px;
   opacity: 0.5;
 }
+a.contact-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid var(--accentColor);
+  border-radius: 8px;
+  color: var(--accentColor);
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s;
+}
+a.contact-resume:hover {
+  background: var(--accentColor);
+  color: #0a0a0a;
+}
 @media only screen and (max-width: 1600px) {
   .contact-section h3 {
     font-size: 50px;

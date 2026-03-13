@@ -55,40 +55,67 @@ const Work = () => {
         <div className="work-flex">
           {[
             {
-              name: "JobGrid",
-              category: "Chrome Extension",
-              description: "Multi-Platform Job Search Chrome Extension orchestrating 18+ job boards into a unified dashboard with Magic Search and cross-site filter synchronization.",
-              tech: "JavaScript, Chrome APIs, HTML, CSS",
+              name: "AgentOS – Multi‑LLM Orchestration",
+              category: "AI Engineering / Multi-Agent Systems",
+              description:
+                "Experimental multi-LLM orchestration system where Llama, Kimi and other models share a real-time context graph and persistent memory, coordinating without a central supervisor. Agents broadcast, critique, execute and spawn new tasks while writing into a shared world state, leading to emergent collaboration.",
+              tech: "Llama, Kimi, Python, TypeScript, shared context graph, persistent memory, autonomous agents",
+              link: "https://github.com/Rikinshah787/AgentOS-Multi-LLM-System",
+              video: "/videos/Mutli-orch.mp4",
             },
             {
-              name: "MailAlarm",
-              category: "Full-Stack App",
-              description: "Phone-Call Based Email Alert System that watches IMAP inboxes for high-priority senders and triggers Twilio voice calls with IVR acknowledgement.",
-              tech: "Vite.js, Express, Twilio, IMAP",
+              name: "ClawArmy",
+              category: "AI Agent Platform",
+              description:
+                "An elite Mission Control platform for designing, deploying, and synchronizing AI Agent Specialists. Enables developers to synthesize custom agent squads and inject them directly into local workspaces with zero-friction automation.",
+              tech: "TypeScript, AI agents, orchestration, automation",
+              link: "https://github.com/Rikinshah787/clawarmy",
+            },
+            {
+              name: "JobGrid",
+              category: "Chrome Extension",
+              description:
+                "Browser-native job search extension orchestrating 18+ job boards (LinkedIn, Indeed, Glassdoor, Dice, RemoteOK, Wellfound) into a split-screen unified dashboard with Magic Search, URL-level query normalization, and cross-site filter sync. V2.00 launching based on user feedback.",
+              tech: "JavaScript, Chrome APIs, HTML, CSS",
+              link: "https://github.com/Rikinshah787/Jobgrid",
             },
             {
               name: "ReachAI",
               category: "AI/ML Platform",
-              description: "Multi-Agent Outbound Automation Engine automating SDR workflow with AI-personalized cold emails via Groq-hosted Llama 3.1.",
-              tech: "Python, React, Groq, Hunter.io",
+              description:
+                "Multi-agent outbound automation engine that handles the full SDR workflow end-to-end: lead sourcing via Hunter.io, Groq-hosted Llama 3.1 for AI-personalized cold emails, batch scheduling, rate limiting, SMTP delivery + reply classification, all through a real-time Python/React dashboard.",
+              tech: "Python, React, Groq, Llama 3.1, Hunter.io, SMTP",
+              link: "https://github.com/Rikinshah787/ReachAI",
+            },
+            {
+              name: "MailAlarm",
+              category: "Full-Stack App",
+              description:
+                "Open-source email monitoring service that watches IMAP inboxes for high-priority senders and triggers Twilio voice calls every 30 seconds with IVR and 'press 1-9-9' acknowledgement, backed by a web dashboard for sender rules and one-click deployment.",
+              tech: "Vite.js, Express, Twilio, IMAP, Node.js",
+            },
+            {
+              name: "LLMResume",
+              category: "AI Tool",
+              description:
+                "Flask-based ATS resume optimizer that intelligently tailors LaTeX resumes to job descriptions. Choose between AI-powered bullet rewriting (PRO Mode with Groq LLM) or fast rule-based keyword injection (SMART Mode).",
+              tech: "Python, Flask, Groq LLM, LaTeX",
+              link: "https://github.com/Rikinshah787/llmresume",
             },
             {
               name: "SmartKid Academy",
               category: "EdTech Platform",
-              description: "Chess coaching platform with training materials and learning support for 200+ students across in-person and hybrid formats.",
+              description:
+                "Chess coaching platform serving 200+ students with a team of 6 instructors. Features SEO-optimized website driving 100+ weekly active users, training materials, and hybrid learning support.",
               tech: "HTML, CSS, JavaScript, SEO",
+              link: "https://smartkid.co.in",
             },
             {
               name: "SAP Analytics Suite",
               category: "Enterprise Data",
-              description: "Enterprise reporting and analytics solutions using SAP BW/4HANA with scalable ETL pipelines processing 3.2M+ records.",
-              tech: "SAP BW, HANA, BODS, Python",
-            },
-            {
-              name: "Portfolio Website",
-              category: "Creative Web",
-              description: "This creative 3D portfolio built with React, Three.js, and GSAP featuring a custom cartoon avatar and physics-based interactions.",
-              tech: "React, TypeScript, Three.js, GSAP",
+              description:
+                "Enterprise reporting and analytics solutions using SAP BW/4HANA with scalable ETL pipelines processing 3.2M+ records across fintech, healthcare, and automotive clients.",
+              tech: "SAP BW, HANA, BODS, SSIS, SSRS, Python, Databricks",
             },
           ].map((project, index) => (
             <div className="work-box" key={index}>
@@ -101,10 +128,27 @@ const Work = () => {
                     <p>{project.category}</p>
                   </div>
                 </div>
+                {project.description && <p>{project.description}</p>}
                 <h4>Tools and features</h4>
                 <p>{project.tech}</p>
+                {"link" in project && project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="disable"
+                    className="work-project-link"
+                  >
+                    View GitHub
+                  </a>
+                )}
               </div>
-              <WorkImage image="/images/placeholder.webp" alt={project.name} />
+              <WorkImage
+                image="/images/placeholder.webp"
+                alt={project.name}
+                video={"video" in project ? project.video : undefined}
+                link={"link" in project ? project.link : undefined}
+              />
             </div>
           ))}
         </div>

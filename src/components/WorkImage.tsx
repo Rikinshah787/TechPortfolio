@@ -9,36 +9,73 @@ interface Props {
 }
 
 const WorkImage = (props: Props) => {
-  const [isVideo, setIsVideo] = useState(false);
-  const [video, setVideo] = useState("");
-  const handleMouseEnter = async () => {
-    if (props.video) {
-      setIsVideo(true);
-      const response = await fetch(`src/assets/${props.video}`);
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      setVideo(blobUrl);
-    }
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    if (props.video) setOpen(true);
   };
+
+  const handleClose = () => setOpen(false);
 
   return (
     <div className="work-image">
-      <a
+      <div
         className="work-image-in"
-        href={props.link}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={() => setIsVideo(false)}
-        target="_blank"
+        onClick={handleOpen}
         data-cursor={"disable"}
       >
         {props.link && (
-          <div className="work-link">
+          <button
+            className="work-link"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (props.link) {
+                window.open(props.link, "_blank", "noopener,noreferrer");
+              }
+            }}
+            aria-label="Open project link"
+          >
             <MdArrowOutward />
-          </div>
+          </button>
         )}
         <img src={props.image} alt={props.alt} />
-        {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
-      </a>
+        {props.video && (
+          <div className="work-play-overlay">
+            <div className="work-play-circle">
+              <span className="work-play-triangle" />
+            </div>
+            <span className="work-play-label">Watch demo</span>
+          </div>
+        )}
+      </div>
+
+      {open && props.video && (
+        <div
+          className="work-video-modal"
+          onClick={handleClose}
+          data-cursor={"disable"}
+        >
+          <div
+            className="work-video-modal-inner"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="work-video-close"
+              onClick={handleClose}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+            <video
+              src={props.video}
+              controls
+              autoPlay
+              playsInline
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
