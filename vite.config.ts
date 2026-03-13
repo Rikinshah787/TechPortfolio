@@ -85,7 +85,7 @@ export default defineConfig(({ mode }) => {
                   return;
                 }
 
-                const data = await groqRes.json();
+                const data: any = await groqRes.json();
                 const reply =
                   data.choices?.[0]?.message?.content ||
                   "Sorry, I couldn't process that.";
