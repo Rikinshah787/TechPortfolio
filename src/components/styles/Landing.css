@@ -496,6 +496,42 @@ h2.landing-info-h2 {
     flex-direction: row;
   }
   .landing-avatar-slot {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    z-index: 10;
+    pointer-events: none;
+    flex: none;
+  }
+  .landing-avatar-slot .character-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100vh;
+    max-height: none;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .landing-avatar-slot .character-container .character-model {
+    pointer-events: inherit;
+  }
+  .landing-avatar-slot .character-model {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    max-height: none;
+    z-index: 11;
+  }
+  .landing-avatar-slot .character-model::before,
+  .landing-avatar-slot .character-model::after {
     display: none;
   }
   .landing-intro {
