@@ -14,6 +14,9 @@ const Landing = ({ children }: PropsWithChildren) => {
               <span>SHAH</span>
             </h1>
           </div>
+          <div className="landing-avatar-slot">
+            {children}
+          </div>
           <div className="landing-info">
             <h3>A Creative</h3>
             <h2 className="landing-info-h2">
@@ -39,7 +42,6 @@ const Landing = ({ children }: PropsWithChildren) => {
             </button>
           </div>
         </div>
-        {children}
       </div>
     </>
   );
