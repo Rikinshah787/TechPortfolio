@@ -71,7 +71,9 @@ const Work = () => {
                 "An elite Mission Control platform for designing, deploying, and synchronizing AI Agent Specialists. Enables developers to synthesize custom agent squads and inject them directly into local workspaces with zero-friction automation.",
               tech: "TypeScript, AI agents, orchestration, automation",
               link: "https://github.com/Rikinshah787/clawarmy",
+              webpage: "https://clawarmy.vercel.app",
               video: "/videos/clawarmy.mp4",
+              image: "/images/ClawArmy.jpg",
             },
             {
               name: "JobGrid",
@@ -80,6 +82,7 @@ const Work = () => {
                 "Browser-native job search extension orchestrating 18+ job boards (LinkedIn, Indeed, Glassdoor, Dice, RemoteOK, Wellfound) into a split-screen unified dashboard with Magic Search, URL-level query normalization, and cross-site filter sync. V2.00 launching based on user feedback.",
               tech: "JavaScript, Chrome APIs, HTML, CSS",
               link: "https://github.com/Rikinshah787/Jobgrid",
+              webpage: "https://jobgrid.vercel.app/",
               video: "/videos/JobGrid.mp4",
               image: "/images/1771099904206.jpg",
             },
@@ -98,6 +101,7 @@ const Work = () => {
               description:
                 "Open-source email monitoring service that watches IMAP inboxes for high-priority senders and triggers Twilio voice calls every 30 seconds with IVR and 'press 1-9-9' acknowledgement, backed by a web dashboard for sender rules and one-click deployment.",
               tech: "Vite.js, Express, Twilio, IMAP, Node.js",
+              image: "/images/MailAlarm.jpg",
             },
             {
               name: "LLMResume",
@@ -113,7 +117,7 @@ const Work = () => {
               description:
                 "Chess coaching platform serving 200+ students with a team of 6 instructors. Features SEO-optimized website driving 100+ weekly active users, training materials, and hybrid learning support.",
               tech: "HTML, CSS, JavaScript, SEO",
-              link: "https://smartkid.co.in",
+              webpage: "https://smartkid.co.in",
               image: "/images/smartkid.png",
             },
             {
@@ -148,12 +152,23 @@ const Work = () => {
                     View GitHub
                   </a>
                 )}
+                {"webpage" in project && project.webpage && (
+                  <a
+                    href={project.webpage}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="disable"
+                    className="work-project-link"
+                  >
+                    View Webpage
+                  </a>
+                )}
               </div>
               <WorkImage
                 image={"image" in project && project.image ? project.image : "/images/placeholder.webp"}
                 alt={project.name}
                 video={"video" in project ? project.video : undefined}
-                link={"link" in project ? project.link : undefined}
+                link={"webpage" in project ? project.webpage : "link" in project ? project.link : undefined}
               />
             </div>
           ))}
