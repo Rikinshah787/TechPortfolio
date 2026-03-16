@@ -72,7 +72,7 @@ const Scene = () => {
     canvasDiv.current.appendChild(renderer.domElement);
 
     const camera = new THREE.PerspectiveCamera(30, aspect, 0.1, 100);
-    camera.position.set(0, 0.15, 4.8);
+    camera.position.set(0, 0.15, mobile ? 3.8 : 4.8);
     camera.lookAt(0, 0.25, 0);
 
     // Loading progress — driven by real model download
