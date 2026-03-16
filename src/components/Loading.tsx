@@ -44,7 +44,7 @@ const Loading = ({ percent }: { percent: number }) => {
 
   return (
     <>
-      <div className="loading-header">
+      <div className={`loading-header ${clicked ? "loader-hidden" : ""}`}>
         <a href="/#" className="loader-title" data-cursor="disable">
           RS
         </a>
@@ -59,7 +59,7 @@ const Loading = ({ percent }: { percent: number }) => {
           </div>
         </div>
       </div>
-      <div className="loading-screen">
+      <div className={`loading-screen ${clicked ? "loading-exit" : ""}`}>
         <div className="loading-marquee">
           <Marquee>
             <span> A Creative Builder</span> <span>A Creative Engineer</span>
@@ -93,24 +93,25 @@ const Loading = ({ percent }: { percent: number }) => {
 export default Loading;
 
 export const setProgress = (setLoading: (value: number) => void) => {
-  let percent: number = 0;
+  let percent = 0;
+  let modelPercent = 0;
+  const maxStepPerTick = 3;
 
-  let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
-      setLoading(percent);
-    } else {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
-          clearInterval(interval);
-        }
-      }, 2000);
-    }
-  }, 100);
+  function setPercent(value: number) {
+    modelPercent = Math.min(value, 95);
+  }
+
+  const interval = setInterval(() => {
+    const fakeStep =
+      percent <= 45
+        ? 2 + Math.round(Math.random() * 3)
+        : percent < 90
+          ? 1
+          : 0;
+    const target = Math.max(percent, modelPercent, percent + fakeStep);
+    percent = Math.min(percent + maxStepPerTick, target, 95);
+    setLoading(Math.round(percent));
+  }, 120);
 
   function clear() {
     clearInterval(interval);
@@ -120,16 +121,16 @@ export const setProgress = (setLoading: (value: number) => void) => {
   function loaded() {
     return new Promise<number>((resolve) => {
       clearInterval(interval);
-      interval = setInterval(() => {
+      const finishInterval = setInterval(() => {
         if (percent < 100) {
-          percent++;
-          setLoading(percent);
+          percent = Math.min(percent + 4, 100);
+          setLoading(Math.round(percent));
         } else {
           resolve(percent);
-          clearInterval(interval);
+          clearInterval(finishInterval);
         }
-      }, 2);
+      }, 8);
     });
   }
-  return { loaded, percent, clear };
+  return { loaded, percent, clear, setPercent };
 };

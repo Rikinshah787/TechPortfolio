@@ -2,7 +2,9 @@
   position: fixed;
   width: 100vw;
   height: var(--vh);
-  background-color: #000;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 999999999;
   display: flex;
   place-items: center;
@@ -64,6 +66,7 @@
   border-radius: 5000px;
   min-height: calc(100vh + 500px);
   box-shadow: none;
+  z-index: 10;
 }
 .loading-clicked .loading-button {
   overflow: visible;
@@ -286,6 +289,15 @@
   font-size: 60px;
   font-weight: 600;
   text-transform: uppercase;
+  transition: opacity 0.4s ease;
+}
+.loading-exit .loading-marquee {
+  opacity: 0;
+}
+.loader-hidden {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 .loading-marquee span {
   padding: 0px 50px;
