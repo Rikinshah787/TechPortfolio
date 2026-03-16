@@ -80,6 +80,7 @@ const Work = () => {
                 "Browser-native job search extension orchestrating 18+ job boards (LinkedIn, Indeed, Glassdoor, Dice, RemoteOK, Wellfound) into a split-screen unified dashboard with Magic Search, URL-level query normalization, and cross-site filter sync. V2.00 launching based on user feedback.",
               tech: "JavaScript, Chrome APIs, HTML, CSS",
               link: "https://github.com/Rikinshah787/Jobgrid",
+              image: "/images/1771099904206.jpg",
             },
             {
               name: "ReachAI",
