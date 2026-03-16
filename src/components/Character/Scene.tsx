@@ -100,13 +100,17 @@ const Scene = () => {
     // Animations
     const animations = setupAnimations(refs);
 
-    // Mouse tracking
+    // Mouse tracking (disabled on touch devices to avoid jitter)
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
     const mouseTracker = createMouseTracker({
       headGroup: refs.headGroup,
       leftPupil: refs.leftPupil,
       rightPupil: refs.rightPupil,
     });
-    mouseTracker.attach(document);
+    if (!isTouchDevice) {
+      mouseTracker.attach(document);
+    }
 
     // Eyebrow hover on character hover area (if we have brow refs)
     if (hoverDivRef.current && refs.leftBrow && refs.rightBrow) {

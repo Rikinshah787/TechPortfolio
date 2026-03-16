@@ -62,7 +62,6 @@ const Work = () => {
               tech: "Llama, Kimi, Python, TypeScript, shared context graph, persistent memory, autonomous agents",
               link: "https://github.com/Rikinshah787/AgentOS-Multi-LLM-System",
               video: "/videos/Mutli-orch.mp4",
-              image: "/images/1771099904206.jpg",
             },
             {
               name: "ClawArmy",
