@@ -62,6 +62,7 @@ const Work = () => {
               tech: "Llama, Kimi, Python, TypeScript, shared context graph, persistent memory, autonomous agents",
               link: "https://github.com/Rikinshah787/AgentOS-Multi-LLM-System",
               video: "/videos/Mutli-orch.mp4",
+              image: "/images/AgentOS-Thumb.jpg",
             },
             {
               name: "ClawArmy",
@@ -113,7 +114,7 @@ const Work = () => {
                 "Chess coaching platform serving 200+ students with a team of 6 instructors. Features SEO-optimized website driving 100+ weekly active users, training materials, and hybrid learning support.",
               tech: "HTML, CSS, JavaScript, SEO",
               link: "https://smartkid.co.in",
-              image: "/images/Screenshot 2026-03-16 142920.png",
+              image: "/images/smartkid.png",
             },
             {
               name: "SAP Analytics Suite",
