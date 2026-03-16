@@ -66,7 +66,7 @@ const Scene = () => {
       powerPreference: mobile ? "low-power" : "high-performance",
     });
     renderer.setSize(container.width, container.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1 : 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 0.85 : 1.2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     canvasDiv.current.appendChild(renderer.domElement);
@@ -137,10 +137,17 @@ const Scene = () => {
     let cachedScrollY = window.scrollY;
     const onScroll = () => { cachedScrollY = window.scrollY; };
     window.addEventListener("scroll", onScroll, { passive: true });
+    let isPageVisible = document.visibilityState === "visible";
+    const onVisibilityChange = () => {
+      isPageVisible = document.visibilityState === "visible";
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     const clock = new THREE.Clock();
     let animFrameId: number;
-    let offScreenFrameCount = 0;
+    const targetFps = mobile ? 30 : 48;
+    const frameInterval = 1000 / targetFps;
+    let lastFrameTime = 0;
     // Throttle render on mobile — every other frame
     const mobileSkip = mobile ? 2 : 1;
     let frameCount = 0;
@@ -154,43 +161,45 @@ const Scene = () => {
       return rect.bottom > 0 && rect.top < window.innerHeight;
     };
 
-    const animate = () => {
+    const animate = (now = 0) => {
       animFrameId = requestAnimationFrame(animate);
+      if (!isPageVisible) return;
+      if (now - lastFrameTime < frameInterval) return;
+      lastFrameTime = now;
+      if (!isCharVisible()) return;
       frameCount++;
       const elapsed = clock.getElapsedTime();
-      if (isCharVisible()) {
-        animations.update(elapsed);
-        if (cachedScrollY < 300) mouseTracker.update();
-        if (frameCount % mobileSkip === 0) {
-          renderer.render(scene, camera);
-        }
-      } else {
-        offScreenFrameCount++;
-        if (offScreenFrameCount % 6 === 0) {
-          renderer.render(scene, camera);
-        }
+      animations.update(elapsed);
+      if (cachedScrollY < 300) mouseTracker.update();
+      if (frameCount % mobileSkip === 0) {
+        renderer.render(scene, camera);
       }
     };
-    animate();
+    animate(performance.now());
 
     // Handle WebGL context loss gracefully
-    renderer.domElement.addEventListener("webglcontextlost", (e) => {
+    const onContextLost = (e: Event) => {
       e.preventDefault();
       cancelAnimationFrame(animFrameId);
-    });
-    renderer.domElement.addEventListener("webglcontextrestored", () => {
-      animate();
-    });
+    };
+    const onContextRestored = () => {
+      animate(performance.now());
+    };
+    renderer.domElement.addEventListener("webglcontextlost", onContextLost);
+    renderer.domElement.addEventListener("webglcontextrestored", onContextRestored);
 
     return () => {
       cancelAnimationFrame(animFrameId);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       if (chatThinkingTimeoutRef.current !== null) {
         window.clearTimeout(chatThinkingTimeoutRef.current);
       }
       animations.dispose();
       mouseTracker.detach();
       window.removeEventListener("resize", onResize);
+      renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
+      renderer.domElement.removeEventListener("webglcontextrestored", onContextRestored);
       scene.clear();
       renderer.dispose();
       if (canvasDiv.current) {

@@ -1,17 +1,37 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import "./styles/Landing.css";
+import { useLoading } from "../context/LoadingProvider";
+
+function useTypingEffect(text: string, delay: number, speed: number, enabled: boolean) {
+  const [displayed, setDisplayed] = useState("");
+  useEffect(() => {
+    if (!enabled) return;
+    let i = 0;
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i >= text.length) clearInterval(interval);
+      }, speed);
+      return () => clearInterval(interval);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [text, delay, speed, enabled]);
+  return displayed;
+}
 
 const Landing = ({ children }: PropsWithChildren) => {
+  const { isLoading } = useLoading();
+  const name = useTypingEffect("RIKIN SHAH", 1500, 120, !isLoading);
+
   return (
     <>
       <div className="landing-section" id="landingDiv">
         <div className="landing-container">
           <div className="landing-intro">
             <h2>Hello! I'm</h2>
-            <h1>
-              RIKIN
-              <br />
-              <span>SHAH</span>
+            <h1 className="landing-typed-name" aria-label="RIKIN SHAH">
+              {name}<span className="typing-cursor">|</span>
             </h1>
           </div>
           <div className="landing-avatar-slot">
@@ -20,8 +40,12 @@ const Landing = ({ children }: PropsWithChildren) => {
           <div className="landing-info">
             <h3>A Creative</h3>
             <h2 className="landing-info-h2" aria-label="Builder, Engineer">
-              <span className="landing-h2-1">Builder</span>
-              <span className="landing-h2-2">Engineer</span>
+              <div className="landing-h2-1">Builder</div>
+              <div className="landing-h2-2">Engineer</div>
+            </h2>
+            <h2>
+              <div className="landing-h2-info">Engineer</div>
+              <div className="landing-h2-info-1">Builder</div>
             </h2>
             <button
               className="landing-chat-cta"
