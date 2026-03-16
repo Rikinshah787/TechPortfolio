@@ -27,6 +27,8 @@ const techImageUrls = [
   "/images/mongo.webp",
   "/images/express.webp",
   "/images/next1.webp",
+  "/images/cursor.png",
+  "/images/antigravity.jpg",
 ];
 const techTextures = techImageUrls.map((url) => textureLoader.load(url));
 
@@ -63,7 +65,6 @@ const aiToolDefs = [
   { abbr: "C", bg: "#D97757" },   // Claude
   { abbr: "G", bg: "#74AA9C" },   // ChatGPT
   { abbr: "Co", bg: "#0078D4" },  // Copilot
-  { abbr: "Cu", bg: "#7B61FF" },  // Cursor
   { abbr: "v0", bg: "#333333" },  // v0
   { abbr: "B", bg: "#E8A317" },   // Bolt
   { abbr: "L", bg: "#FF6B9D" },   // Lovable
@@ -81,7 +82,7 @@ const sphereGeometry = new THREE.SphereGeometry(
 );
 
 // ── Ball configuration ──
-const BALL_COUNT = 16;
+const BALL_COUNT = 17;
 
 // Shuffle texture indices so each ball gets a unique texture
 const textureAssignment = (() => {

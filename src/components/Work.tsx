@@ -79,6 +79,7 @@ const Work = () => {
                 "Browser-native job search extension orchestrating 18+ job boards (LinkedIn, Indeed, Glassdoor, Dice, RemoteOK, Wellfound) into a split-screen unified dashboard with Magic Search, URL-level query normalization, and cross-site filter sync. V2.00 launching based on user feedback.",
               tech: "JavaScript, Chrome APIs, HTML, CSS",
               link: "https://github.com/Rikinshah787/Jobgrid",
+              video: "/videos/JobGrid.mp4",
               image: "/images/1771099904206.jpg",
             },
             {
@@ -88,6 +89,7 @@ const Work = () => {
                 "Multi-agent outbound automation engine that handles the full SDR workflow end-to-end: lead sourcing via Hunter.io, Groq-hosted Llama 3.1 for AI-personalized cold emails, batch scheduling, rate limiting, SMTP delivery + reply classification, all through a real-time Python/React dashboard.",
               tech: "Python, React, Groq, Llama 3.1, Hunter.io, SMTP",
               link: "https://github.com/Rikinshah787/ReachAI",
+              video: "/videos/ReachAI.mp4",
             },
             {
               name: "MailAlarm",
@@ -111,6 +113,7 @@ const Work = () => {
                 "Chess coaching platform serving 200+ students with a team of 6 instructors. Features SEO-optimized website driving 100+ weekly active users, training materials, and hybrid learning support.",
               tech: "HTML, CSS, JavaScript, SEO",
               link: "https://smartkid.co.in",
+              image: "/images/Screenshot 2026-03-16 142920.png",
             },
             {
               name: "SAP Analytics Suite",
