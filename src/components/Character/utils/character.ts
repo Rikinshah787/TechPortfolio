@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three-stdlib";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { GLTFLoader, DRACOLoader } from "three-stdlib";
 
 export interface CharacterRefs {
   character: THREE.Group;
