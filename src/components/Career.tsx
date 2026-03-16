@@ -15,25 +15,13 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>IT Analyst</h4>
-                <h5>Infornation Techserve Pvt. Ltd.</h5>
+                <h4>Project Manager</h4>
+                <h5>Creative Business Solutions, Inc.</h5>
               </div>
-              <h3>2019</h3>
+              <h3>NOW</h3>
             </div>
             <p>
-              Spearheaded project wireframes. Piloted 'Foodmantic' project. Led scrum activities for end-to-end development.
-            </p>
-          </div>
-          <div className="career-info-box">
-            <div className="career-info-in">
-              <div className="career-role">
-                <h4>SAP Consultant</h4>
-                <h5>Deloitte India (Offices of the US)</h5>
-              </div>
-              <h3>2021</h3>
-            </div>
-            <p>
-              Executed 3 end-to-end SAP ERP implementations. Engineered ETL pipelines processing 3.2M+ records. Led Agile delivery across 12 sprints improving efficiency by 45%.
+              Leading data visualization solutions, consolidated 5+ enterprise platforms into Power BI dashboards. Drove 30% increase in stakeholder engagement.
             </p>
           </div>
           <div className="career-info-box">
@@ -51,13 +39,25 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Project Manager</h4>
-                <h5>Creative Business Solutions, Inc.</h5>
+                <h4>SAP Consultant</h4>
+                <h5>Deloitte India (Offices of the US)</h5>
               </div>
-              <h3>NOW</h3>
+              <h3>2021</h3>
             </div>
             <p>
-              Leading data visualization solutions, consolidated 5+ enterprise platforms into Power BI dashboards. Drove 30% increase in stakeholder engagement.
+              Executed 3 end-to-end SAP ERP implementations. Engineered ETL pipelines processing 3.2M+ records. Led Agile delivery across 12 sprints improving efficiency by 45%.
+            </p>
+          </div>
+          <div className="career-info-box">
+            <div className="career-info-in">
+              <div className="career-role">
+                <h4>IT Analyst</h4>
+                <h5>Infornation Techserve Pvt. Ltd.</h5>
+              </div>
+              <h3>2017</h3>
+            </div>
+            <p>
+              Spearheaded project wireframes. Piloted 'Foodmantic' project. Led scrum activities for end-to-end development.
             </p>
           </div>
           <div className="career-info-box">

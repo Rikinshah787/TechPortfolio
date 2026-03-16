@@ -40,6 +40,12 @@ const Work = () => {
     ease: "none",
   });
 
+  // Scroll progress bar
+  timeline.to(".work-scroll-progress", {
+    scaleX: 1,
+    ease: "none",
+  }, 0);
+
   // Clean up (optional, good practice)
   return () => {
     timeline.kill();
@@ -48,6 +54,9 @@ const Work = () => {
 }, []);
   return (
     <div className="work-section" id="work">
+      <div className="work-scroll-track">
+        <div className="work-scroll-progress" />
+      </div>
       <div className="work-container section-container">
         <h2>
           My <span>Work</span>

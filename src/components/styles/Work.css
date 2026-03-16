@@ -11,6 +11,23 @@
   height: 100vh;
   box-sizing: border-box;
   will-change: transform;
+  position: relative;
+}
+.work-scroll-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 10;
+}
+.work-scroll-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #2dd4bf);
+  transform-origin: left;
+  transform: scaleX(0);
+  border-radius: 0 2px 2px 0;
 }
 .work-container {
   margin: auto;
