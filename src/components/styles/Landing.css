@@ -32,7 +32,8 @@
   .landing-container {
     display: flex;
     flex-direction: column;
-    min-height: var(--vh);
+    height: var(--vh);
+    justify-content: space-evenly;
     padding: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
     box-sizing: border-box;
   }
@@ -49,8 +50,7 @@
     min-height: 0;
   }
   .landing-avatar-slot {
-    flex: 1;
-    min-height: 28vh;
+    flex: 0 1 auto;
     max-height: 38vh;
     z-index: 2;
     isolation: isolate;
@@ -113,6 +113,9 @@
   .landing-info-h2::after {
     display: none;
   }
+  .landing-info > h2:not(.landing-info-h2) {
+    display: none;
+  }
   .landing-chat-cta {
     margin-left: auto;
     margin-right: auto;
@@ -133,7 +136,6 @@
     line-height: 24px;
   }
   .landing-avatar-slot {
-    min-height: 22vh;
     max-height: 30vh;
   }
   .landing-avatar-slot .character-container {
@@ -174,7 +176,6 @@
     font-size: 28px;
   }
   .landing-avatar-slot {
-    min-height: 20vh;
     max-height: 28vh;
   }
   .character-rim {
@@ -193,7 +194,6 @@
     padding-top: max(10%, env(safe-area-inset-top));
   }
   .landing-avatar-slot {
-    min-height: 30vh;
     max-height: 40vh;
   }
   .landing-avatar-slot .character-container {
