@@ -62,11 +62,11 @@ const Scene = () => {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !mobile,
-      powerPreference: mobile ? "low-power" : "high-performance",
+      antialias: true,
+      powerPreference: mobile ? "default" : "high-performance",
     });
     renderer.setSize(container.width, container.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 0.85 : 1.2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 1.2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     canvasDiv.current.appendChild(renderer.domElement);

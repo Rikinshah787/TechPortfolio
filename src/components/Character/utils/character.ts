@@ -17,8 +17,7 @@ const isMobile = () =>
   /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (window.innerWidth <= 1024 && "ontouchstart" in window);
 
-const AVATAR_DESKTOP = "/models/avatar.glb";
-const AVATAR_MOBILE = "/models/avatar-mobile.glb";
+const AVATAR_MODEL = "/models/avatar.glb";
 
 export function createRikinCharacter(
   onProgress?: (pct: number) => void,
@@ -35,7 +34,7 @@ export function createRikinCharacter(
   loader.setDRACOLoader(dracoLoader);
 
   loader.load(
-    mobile ? AVATAR_MOBILE : AVATAR_DESKTOP,
+    AVATAR_MODEL,
     (gltf) => {
       const model = gltf.scene;
       model.traverse((obj) => {
