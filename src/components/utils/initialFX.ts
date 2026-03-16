@@ -28,19 +28,6 @@ export function initialFX() {
   );
 
   gsap.fromTo(
-    ".landing-h2-info",
-    { opacity: 0, y: 80, filter: "blur(5px)" },
-    {
-      opacity: 1,
-      duration: 1.2,
-      filter: "blur(0px)",
-      ease: "power3.inOut",
-      y: 0,
-      delay: 0.3,
-    }
-  );
-
-  gsap.fromTo(
     ".landing-info-h2",
     { opacity: 0, y: 30 },
     {
@@ -63,7 +50,6 @@ export function initialFX() {
     }
   );
 
-  loopTwoLines(".landing-h2-info", ".landing-h2-info-1");
   loopTwoLines(".landing-h2-1", ".landing-h2-2");
 }
 
@@ -72,7 +58,12 @@ function loopTwoLines(selector1: string, selector2: string) {
   const el2 = document.querySelector(selector2);
   if (!el1 || !el2) return;
 
-  gsap.set(el2, { opacity: 0, y: 80 });
+  const roleLineHeight =
+    (el1 as HTMLElement).getBoundingClientRect().height || 42;
+  const travelY = Math.max(34, roleLineHeight * 1.15);
+
+  gsap.set(el1, { opacity: 1, y: 0 });
+  gsap.set(el2, { opacity: 0, y: travelY });
   const delay = 4;
 
   const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
@@ -84,18 +75,18 @@ function loopTwoLines(selector1: string, selector2: string) {
     delay,
   })
     .to(el1, {
-      y: -80,
+      y: -travelY,
       opacity: 0,
       duration: 1.2,
       ease: "power3.inOut",
     }, `+=${delay}`)
     .to(el2, {
-      y: -80,
+      y: -travelY,
       opacity: 0,
       duration: 1.2,
       ease: "power3.inOut",
     }, `+=${delay}`)
-    .set(el1, { y: 80 })
+    .set(el1, { y: travelY })
     .to(el1, {
       y: 0,
       opacity: 1,

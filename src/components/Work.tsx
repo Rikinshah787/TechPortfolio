@@ -62,6 +62,7 @@ const Work = () => {
               tech: "Llama, Kimi, Python, TypeScript, shared context graph, persistent memory, autonomous agents",
               link: "https://github.com/Rikinshah787/AgentOS-Multi-LLM-System",
               video: "/videos/Mutli-orch.mp4",
+              image: "/images/1771099904206.jpg",
             },
             {
               name: "ClawArmy",
@@ -70,6 +71,7 @@ const Work = () => {
                 "An elite Mission Control platform for designing, deploying, and synchronizing AI Agent Specialists. Enables developers to synthesize custom agent squads and inject them directly into local workspaces with zero-friction automation.",
               tech: "TypeScript, AI agents, orchestration, automation",
               link: "https://github.com/Rikinshah787/clawarmy",
+              video: "/videos/clawarmy.mp4",
             },
             {
               name: "JobGrid",
@@ -144,7 +146,7 @@ const Work = () => {
                 )}
               </div>
               <WorkImage
-                image="/images/placeholder.webp"
+                image={"image" in project && project.image ? project.image : "/images/placeholder.webp"}
                 alt={project.name}
                 video={"video" in project ? project.video : undefined}
                 link={"link" in project ? project.link : undefined}

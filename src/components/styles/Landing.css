@@ -272,8 +272,8 @@
   background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.35), rgba(10, 15, 13, 0.97));
   border: 1px solid rgba(16, 185, 129, 0.45);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .avatar-thinking-dots {
   display: flex;
@@ -345,13 +345,16 @@
   bottom: 40px;
   top: inherit;
   z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .landing-info h3 {
   font-size: 22px;
   letter-spacing: 2px;
   font-weight: 300;
   color: var(--accentColor);
-  margin: 0;
+  margin: 0 0 6px;
 }
 .landing-info h2 {
   margin: 0;
@@ -368,7 +371,7 @@
   letter-spacing: 2px;
 }
 .landing-chat-cta {
-  margin-top: 18px;
+  margin-top: 8px;
   margin-left: 20px;
   padding: 7px 14px;
   display: inline-flex;
@@ -376,20 +379,22 @@
   gap: 8px;
   border-radius: 999px;
   border: 1px solid rgba(16, 185, 129, 0.5);
-  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.35), rgba(10, 15, 13, 0.96));
+  background: #0d1512;
   color: #e2e8f0;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.42);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: relative;
+  z-index: 4;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 .landing-chat-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 28px rgba(16, 185, 129, 0.28);
   border-color: rgba(16, 185, 129, 0.85);
 }
 .landing-chat-dot {
@@ -411,37 +416,38 @@
     opacity: 1;
   }
 }
-.landing-h2-info-1 {
-  position: absolute;
-  top: 0;
-}
 h2.landing-info-h2 {
-  color: #10b981;
+  color: #f0fdf4;
   font-size: 42px;
-  width: 120%;
-  margin: 0;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 18px;
   font-family: "Geist", sans-serif;
   font-weight: 600;
   position: relative;
-  margin-left: -5px;
+  line-height: 1.1;
+  min-height: 1.1em;
+  height: 1.1em;
+  overflow: hidden;
+  z-index: 1;
+  display: block;
+  contain: layout paint;
 }
+.landing-h2-1,
 .landing-h2-2 {
   position: absolute;
-  top: 0;
-}
-.landing-info-h2::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 120%;
-  z-index: 3;
-  background-image: linear-gradient(
-    0deg,
-    var(--backgroundColor) 40%,
-    rgba(0, 0, 0, 0) 110%
-  );
-  top: 0;
   left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  color: inherit;
+  will-change: transform, opacity;
+}
+.landing-h2-1 {
+  z-index: 1;
+}
+.landing-h2-2 {
+  z-index: 2;
 }
 @media screen and (min-width: 500px) {
   .landing-circle2 {
@@ -488,6 +494,7 @@ h2.landing-info-h2 {
   }
   h2.landing-info-h2 {
     font-size: 55px;
+    max-width: 420px;
   }
 }
 @media screen and (min-width: 1025px) {
@@ -555,9 +562,13 @@ h2.landing-info-h2 {
     left: 66%;
     width: auto;
     padding-bottom: 0;
+    align-items: flex-start;
   }
   .landing-info h2 {
     justify-content: flex-start;
+  }
+  h2.landing-info-h2 {
+    margin: 0 0 12px -5px;
   }
   .landing-chat-cta {
     margin-left: 20px;
@@ -621,5 +632,6 @@ h2.landing-info-h2 {
   }
   h2.landing-info-h2 {
     font-size: 75px;
+    max-width: 560px;
   }
 }

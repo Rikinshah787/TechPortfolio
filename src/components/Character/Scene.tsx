@@ -56,12 +56,17 @@ const Scene = () => {
 
     const scene = new THREE.Scene();
 
+    const mobile =
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (window.innerWidth <= 1024 && "ontouchstart" in window);
+
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !mobile,
+      powerPreference: mobile ? "low-power" : "high-performance",
     });
     renderer.setSize(container.width, container.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1 : 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     canvasDiv.current.appendChild(renderer.domElement);
@@ -70,12 +75,27 @@ const Scene = () => {
     camera.position.set(0, 0.15, 4.8);
     camera.lookAt(0, 0.25, 0);
 
-    // Build character
-    const refs = createRikinCharacter();
-    scene.add(refs.character);
+    // Loading progress — driven by real model download
+    const progress = setProgress((value) => setLoading(value));
 
     // Lighting
     const light = setLighting(scene);
+
+    // Build character with real loading progress
+    const refs = createRikinCharacter(
+      (pct) => {
+        progress.setPercent(pct);
+      },
+      () => {
+        // Model loaded — finish progress and turn on lights
+        progress.loaded().then(() => {
+          setTimeout(() => {
+            light.turnOnLights();
+          }, 2500);
+        });
+      }
+    );
+    scene.add(refs.character);
 
     // Animations
     const animations = setupAnimations(refs);
@@ -108,18 +128,6 @@ const Scene = () => {
     setCharTimeline(refs.character, camera);
     setAllTimeline();
 
-    // Loading progress simulation
-    const progress = setProgress((value) => setLoading(value));
-
-    // Character is built synchronously, so complete loading quickly
-    setTimeout(() => {
-      progress.loaded().then(() => {
-        setTimeout(() => {
-          light.turnOnLights();
-        }, 2500);
-      });
-    }, 300);
-
     // Resize
     const onResize = () =>
       handleResize(renderer, camera, canvasDiv, refs.character);
@@ -133,14 +141,29 @@ const Scene = () => {
     const clock = new THREE.Clock();
     let animFrameId: number;
     let offScreenFrameCount = 0;
+    // Throttle render on mobile — every other frame
+    const mobileSkip = mobile ? 2 : 1;
+    let frameCount = 0;
+
+    // Character is visible through landing + about + whatIDo sections.
+    // Use the character-model element's visibility to determine rendering.
+    const charEl = canvasDiv.current;
+    const isCharVisible = () => {
+      if (!charEl) return cachedScrollY < 500;
+      const rect = charEl.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    };
 
     const animate = () => {
       animFrameId = requestAnimationFrame(animate);
+      frameCount++;
       const elapsed = clock.getElapsedTime();
-      if (cachedScrollY < 500) {
+      if (isCharVisible()) {
         animations.update(elapsed);
-        mouseTracker.update();
-        renderer.render(scene, camera);
+        if (cachedScrollY < 300) mouseTracker.update();
+        if (frameCount % mobileSkip === 0) {
+          renderer.render(scene, camera);
+        }
       } else {
         offScreenFrameCount++;
         if (offScreenFrameCount % 6 === 0) {
@@ -149,6 +172,15 @@ const Scene = () => {
       }
     };
     animate();
+
+    // Handle WebGL context loss gracefully
+    renderer.domElement.addEventListener("webglcontextlost", (e) => {
+      e.preventDefault();
+      cancelAnimationFrame(animFrameId);
+    });
+    renderer.domElement.addEventListener("webglcontextrestored", () => {
+      animate();
+    });
 
     return () => {
       cancelAnimationFrame(animFrameId);
