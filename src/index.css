@@ -92,12 +92,6 @@ body {
   margin: auto;
   position: relative;
 }
-/* Block fixed green glow circles for every section after landing */
-#smooth-content .container-main > *:not(.landing-section) {
-  background-color: var(--backgroundColor);
-  position: relative;
-  z-index: 16;
-}
 .container1 {
   width: var(--cWidth);
   height: var(--vh);

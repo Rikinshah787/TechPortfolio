@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
 
 interface Props {
@@ -10,12 +10,21 @@ interface Props {
 
 const WorkImage = (props: Props) => {
   const [open, setOpen] = useState(false);
+  const previewRef = useRef<HTMLVideoElement>(null);
 
   const handleOpen = () => {
     if (props.video) setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
+
+  // Seek preview video to midpoint once metadata loads
+  const handlePreviewLoaded = () => {
+    const v = previewRef.current;
+    if (v && v.duration && isFinite(v.duration)) {
+      v.currentTime = v.duration / 2;
+    }
+  };
 
   return (
     <div className="work-image">
@@ -38,7 +47,20 @@ const WorkImage = (props: Props) => {
             <MdArrowOutward />
           </button>
         )}
-        <img src={props.image} alt={props.alt} />
+        {props.video ? (
+          <video
+            ref={previewRef}
+            src={props.video}
+            muted
+            loop
+            autoPlay
+            playsInline
+            onLoadedMetadata={handlePreviewLoaded}
+            className="work-preview-video"
+          />
+        ) : (
+          <img src={props.image} alt={props.alt} />
+        )}
         {props.video && (
           <div className="work-play-overlay">
             <div className="work-play-circle">

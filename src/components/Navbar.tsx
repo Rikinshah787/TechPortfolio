@@ -57,8 +57,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="landing-circle1"></div>
-      <div className="landing-circle2"></div>
       <div className="nav-fade"></div>
     </>
   );

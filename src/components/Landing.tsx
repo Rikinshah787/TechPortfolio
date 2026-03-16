@@ -27,6 +27,8 @@ const Landing = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
+        <div className="landing-circle1"></div>
+        <div className="landing-circle2"></div>
         <div className="landing-container">
           <div className="landing-intro">
             <h2>Hello! I'm</h2>
