@@ -50,7 +50,7 @@
     min-height: 0;
   }
   .landing-avatar-slot {
-    flex: 0 1 auto;
+    flex: 0 0 35vh;
     max-height: 38vh;
     z-index: 2;
     isolation: isolate;
