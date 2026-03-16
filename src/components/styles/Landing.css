@@ -45,7 +45,7 @@
     padding-bottom: 8px;
     text-align: center;
     width: 100%;
-    z-index: 1;
+    z-index: 5;
     min-height: 0;
   }
   .landing-avatar-slot {
@@ -55,6 +55,7 @@
     z-index: 2;
     isolation: isolate;
     position: relative;
+    overflow: clip;
   }
   .landing-avatar-slot .character-container {
     position: relative;
@@ -80,10 +81,10 @@
     display: none;
   }
   .character-rim {
-    width: 220px;
-    height: 220px;
-    filter: blur(35px);
-    transform: translate(-50%, 80%) scale(1);
+    width: 150px;
+    height: 150px;
+    filter: blur(25px);
+    transform: translate(-50%, 60%) scale(1);
   }
   .character-container {
     min-height: auto;
@@ -98,7 +99,7 @@
     padding-bottom: 0;
     text-align: center;
     width: 100%;
-    z-index: 1;
+    z-index: 5;
   }
   .landing-info h2 {
     margin-left: 0;
@@ -142,9 +143,9 @@
     max-height: 28vh;
   }
   .character-rim {
-    width: 160px;
-    height: 160px;
-    filter: blur(25px);
+    width: 120px;
+    height: 120px;
+    filter: blur(20px);
   }
 }
 /* Galaxy Fold folded & very narrow screens */
@@ -177,9 +178,9 @@
     max-height: 28vh;
   }
   .character-rim {
-    width: 140px;
-    height: 140px;
-    filter: blur(20px);
+    width: 100px;
+    height: 100px;
+    filter: blur(15px);
   }
   .landing-chat-cta {
     font-size: 9px;
