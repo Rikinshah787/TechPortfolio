@@ -104,6 +104,14 @@
     margin-left: 0;
     justify-content: center;
   }
+  h2.landing-info-h2 {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+  .landing-info-h2::after {
+    display: none;
+  }
   .landing-chat-cta {
     margin-left: auto;
     margin-right: auto;
