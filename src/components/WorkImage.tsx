@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { MdArrowOutward } from "react-icons/md";
 
 interface Props {
@@ -9,14 +9,8 @@ interface Props {
 }
 
 const WorkImage = (props: Props) => {
-  const [open, setOpen] = useState(false);
+  const [muted, setMuted] = useState(true);
   const previewRef = useRef<HTMLVideoElement>(null);
-
-  const handleOpen = () => {
-    if (props.video) setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
 
   // Seek preview video to midpoint once metadata loads
   const handlePreviewLoaded = () => {
@@ -26,11 +20,25 @@ const WorkImage = (props: Props) => {
     }
   };
 
+  // Toggle mute imperatively — never change React props so the video doesn't restart
+  const handleVideoClick = useCallback(() => {
+    const v = previewRef.current;
+    if (!v) return;
+    if (v.muted) {
+      v.muted = false;
+      v.controls = true;
+      setMuted(false);
+    } else {
+      v.muted = true;
+      v.controls = false;
+      setMuted(true);
+    }
+  }, []);
+
   return (
     <div className="work-image">
       <div
         className="work-image-in"
-        onClick={handleOpen}
         data-cursor={"disable"}
       >
         {props.link && (
@@ -56,48 +64,21 @@ const WorkImage = (props: Props) => {
             autoPlay
             playsInline
             onLoadedMetadata={handlePreviewLoaded}
+            onClick={handleVideoClick}
             className="work-preview-video"
           />
         ) : (
           <img src={props.image} alt={props.alt} />
         )}
-        {props.video && (
-          <div className="work-play-overlay">
+        {props.video && muted && (
+          <div className="work-play-overlay" onClick={handleVideoClick}>
             <div className="work-play-circle">
               <span className="work-play-triangle" />
             </div>
-            <span className="work-play-label">Watch demo</span>
+            <span className="work-play-label">Tap to unmute</span>
           </div>
         )}
       </div>
-
-      {open && props.video && (
-        <div
-          className="work-video-modal"
-          onClick={handleClose}
-          data-cursor={"disable"}
-        >
-          <div
-            className="work-video-modal-inner"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="work-video-close"
-              onClick={handleClose}
-              aria-label="Close video"
-            >
-              ✕
-            </button>
-            <video
-              src={props.video}
-              controls
-              autoPlay
-              playsInline
-              style={{ width: "100%", height: "100%" }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

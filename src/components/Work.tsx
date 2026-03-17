@@ -110,6 +110,7 @@ const Work = () => {
               description:
                 "Open-source email monitoring service that watches IMAP inboxes for high-priority senders and triggers Twilio voice calls every 30 seconds with IVR and 'press 1-9-9' acknowledgement, backed by a web dashboard for sender rules and one-click deployment.",
               tech: "Vite.js, Express, Twilio, IMAP, Node.js",
+              video: "/videos/MailAlarm.mp4",
               image: "/images/MailAlarm.jpg",
             },
             {
@@ -119,6 +120,7 @@ const Work = () => {
                 "Flask-based ATS resume optimizer that intelligently tailors LaTeX resumes to job descriptions. Choose between AI-powered bullet rewriting (PRO Mode with Groq LLM) or fast rule-based keyword injection (SMART Mode).",
               tech: "Python, Flask, Groq LLM, LaTeX",
               link: "https://github.com/Rikinshah787/llmresume",
+              video: "/videos/LLmResume.mp4",
             },
             {
               name: "SmartKid Academy",
@@ -128,13 +130,6 @@ const Work = () => {
               tech: "HTML, CSS, JavaScript, SEO",
               webpage: "https://smartkid.co.in",
               image: "/images/smartkid.png",
-            },
-            {
-              name: "SAP Analytics Suite",
-              category: "Enterprise Data",
-              description:
-                "Enterprise reporting and analytics solutions using SAP BW/4HANA with scalable ETL pipelines processing 3.2M+ records across fintech, healthcare, and automotive clients.",
-              tech: "SAP BW, HANA, BODS, SSIS, SSRS, Python, Databricks",
             },
           ].map((project, index) => (
             <div className="work-box" key={index}>

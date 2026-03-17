@@ -294,6 +294,7 @@
 /* ---- Mobile ---- */
 @media (max-width: 480px) {
   .chat-panel {
+    position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
