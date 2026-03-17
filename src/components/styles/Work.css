@@ -45,16 +45,15 @@
   position: relative;
 }
 .work-box {
-  padding: 80px;
+  padding: 60px 80px;
   display: flex;
   flex-direction: column;
   width: 600px;
   box-sizing: border-box;
   border-right: 1px solid #363636;
   flex-shrink: 0;
-  gap: 50px;
+  gap: 30px;
   justify-content: center;
-  overflow: hidden;
 }
 .work-flex .work-box:nth-child(even) {
   flex-direction: column-reverse;
