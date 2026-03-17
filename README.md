@@ -1,4 +1,5 @@
-# Rikin Shah — 3D Portfolio Website
+# Rikin Shah — AI Avatar Portfolio Website with KG Base
+<img width="1902" height="1022" alt="image" src="https://github.com/user-attachments/assets/2296dc44-162a-4aa2-92c7-7c83f0500003" />
 
 A creative, fully responsive portfolio website featuring a custom 3D avatar, physics-based interactions, AI-powered chat, and scroll-driven animations.
 
@@ -6,7 +7,7 @@ A creative, fully responsive portfolio website featuring a custom 3D avatar, phy
 
 ## Features
 
-- **3D Cartoon Avatar** — Programmatic Three.js character with cel-shaded toon materials, idle animations, blink system, and cursor-tracking eyes (GLTF + Draco compression)
+- **3D Avatar** — Programmatic Three.js character with cel-shaded toon materials, idle animations, blink system, and cursor-tracking eyes (GLTF + Draco compression)
 - **AI Chat Avatar** — Conversational chat widget powered by Groq (Llama 3.3) with a built-in knowledge base, typewriter effect, and mobile-optimized bottom sheet with virtual keyboard handling
 - **Physics-Based Tech Stack** — Interactive 3D spheres (React Three Fiber + Rapier physics) showcasing skills
 - **Horizontal Scroll Work Section** — GSAP ScrollTrigger-driven horizontal gallery with inline video previews, progress bar, and native fullscreen
