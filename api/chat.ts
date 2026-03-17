@@ -85,7 +85,7 @@ const KNOWLEDGE: KnowledgeEntry[] = [
     id: "portfolio-3d",
     tags: ["portfolio", "3d", "avatar", "three.js", "website", "resume"],
     text:
-      "Rikin's portfolio is built with React, TypeScript, Three.js, and GSAP, featuring a custom 3D avatar, dark + emerald aesthetic, smooth scrolling, and an AI-powered chat avatar backed by Groq so visitors can ask questions conversationally. His resume is available for download at /videos/resume_20260303_144417_928013_7cce5aaa.pdf.",
+      "Rikin's portfolio is built with React, TypeScript, Three.js, and GSAP, featuring a custom 3D avatar, dark + emerald aesthetic, smooth scrolling, and an AI-powered chat avatar backed by Groq so visitors can ask questions conversationally. His resume is available for download at /videos/Rikin-Shah-Resume.pdf.",
   },
   {
     id: "skills",

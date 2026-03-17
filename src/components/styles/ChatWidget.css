@@ -48,9 +48,7 @@
   max-height: min(560px, calc(100dvh - 48px - env(safe-area-inset-bottom, 0px)));
   border-radius: 16px;
   border: 1px solid rgba(16, 185, 129, 0.18);
-  background: rgba(10, 15, 13, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #0a0f0d;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -304,9 +302,7 @@
     border-radius: 16px 16px 0 0;
     border: 1px solid rgba(16, 185, 129, 0.18);
     border-bottom: none;
-    background: rgba(10, 15, 13, 0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #0a0f0d;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
   }
 
