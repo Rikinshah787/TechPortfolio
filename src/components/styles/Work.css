@@ -152,7 +152,7 @@
 .work-image img,
 .work-preview-video {
   max-width: 100%;
-  max-height: 350px;
+  max-height: min(280px, 30vh);
   border-radius: 8px;
   object-fit: cover;
   display: block;

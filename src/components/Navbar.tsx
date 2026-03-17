@@ -32,11 +32,11 @@ const Navbar = () => {
           RS
         </a>
         <a
-          href="mailto:rikinshah787@gmail.com"
+          href="mailto:rshah88@asu.edu"
           className="navbar-connect"
           data-cursor="disable"
         >
-          rikinshah787@gmail.com
+          rshah88@asu.edu
         </a>
         <ul>
           <li>
