@@ -37,8 +37,6 @@ npm install
 
 # Set up environment variables
 cp .env.example .env
-# Edit .env and add your Groq API key (get one at https://console.groq.com)
-
 # Start dev server
 npm run dev
 ```
@@ -50,11 +48,9 @@ The site runs at `http://localhost:5173` by default.
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `LLM_PROVIDER` | LLM provider (`groq` or `openai`) | Yes |
-| `GROQ_API_KEY` | Your Groq API key | Yes (if using Groq) |
 | `GROQ_MODEL` | Groq model ID (default: `llama-3.3-70b-versatile`) | No |
-| `OPENAI_API_KEY` | OpenAI API key (alternative provider) | No |
 
-> The chat widget works without an API key — it falls back to a built-in keyword-matched knowledge base.
+> The chat widget falls back to a built-in keyword-matched knowledge base when no API key is configured.
 
 ## Project Structure
 
