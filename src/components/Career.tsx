@@ -15,10 +15,22 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
+                <h4>FinOps Analyst</h4>
+                <h5>Adobe</h5>
+              </div>
+              <h3>NOW</h3>
+            </div>
+            <p>
+              Discovered and analyzed $2.5M+ in AWS and Azure cloud spend, led RI/Savings Plans/PTU analyses. Built 4 Python and Excel dashboards automating monthly reviews, cutting reporting time by 6+ hours/month.
+            </p>
+          </div>
+          <div className="career-info-box">
+            <div className="career-info-in">
+              <div className="career-role">
                 <h4>Project Manager</h4>
                 <h5>Creative Business Solutions, Inc.</h5>
               </div>
-              <h3>NOW</h3>
+              <h3>2025</h3>
             </div>
             <p>
               Leading data visualization solutions, consolidated 5+ enterprise platforms into Power BI dashboards. Drove 30% increase in stakeholder engagement.

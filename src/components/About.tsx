@@ -6,7 +6,7 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          A Creative Builder, Project Manager, and Engineer with 6+ years of experience across enterprise technology, GenAI, and data systems. MS in IT Project Management from Arizona State University. Certified Scrum Master with deep expertise in SAP, AWS, Python, and modern web development. Founder of SmartKid Academy — a chess coaching platform serving 200+ students. USCF-rated chess player (1792) and AICF Certified Instructor. Passionate about building products that solve real problems.
+          A Creative Builder, Project Manager, and Engineer with 6+ years of experience across enterprise technology, GenAI, and data systems. Currently a FinOps Analyst at Adobe, analyzing multi-million dollar cloud spend and building automation platforms with multi-agent pipelines on the side. MS in IT Project Management from Arizona State University. Certified Scrum Master with deep expertise in SAP, AWS, Python, and modern web development. Founder of SmartKid Academy — a chess coaching platform serving 200+ students. USCF-rated chess player (1792) and AICF Certified Instructor. Passionate about building products that solve real problems.
         </p>
       </div>
     </div>
