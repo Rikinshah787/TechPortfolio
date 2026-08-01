@@ -13,13 +13,19 @@ const KNOWLEDGE: KnowledgeEntry[] = [
     id: "about",
     tags: ["who", "about", "rikin", "bio", "summary", "introduce"],
     text:
-      "Rikin Shah, MS, CSM, is a Creative Builder, Agentic AI Developer, and Project Manager with 6+ years of experience across enterprise tech (Deloitte, CBS), SAP, GenAI, and data systems. He blends engineering depth, product thinking, and delivery discipline to ship useful systems end-to-end. He currently works on AGI-aligned automation platforms with multi-agent pipelines and DevOps deployment. He has 2,900+ LinkedIn connections and is actively building in the AI agent space.",
+      "Rikin Shah, MS, CSM, FOCP, is a Creative Builder, Agentic AI Developer, and Project Manager with 6+ years of experience across enterprise tech (Adobe, Deloitte, CBS), SAP, GenAI, and data systems. He blends engineering depth, product thinking, and delivery discipline to ship useful systems end-to-end. He currently works as a FinOps Analyst at Adobe, analyzing $2.5M+ in AWS/Azure cloud spend, while building AGI-aligned automation platforms with multi-agent pipelines on the side. He has 2,900+ LinkedIn connections and is actively building in the AI agent space.",
+  },
+  {
+    id: "experience-adobe",
+    tags: ["adobe", "finops", "current", "now", "cloud cost", "aws", "azure", "savings", "dashboards", "job", "work"],
+    text:
+      "At Adobe (Apr 2026–Present) in San Francisco, CA, Rikin is a FinOps Analyst. He discovered and analyzed $2.5M+ in AWS and Azure cloud spend; led RI, Savings Plans, and PTU analyses for cloud cost optimization. He built 4 Python and Excel FinOps dashboards, automating monthly spend reviews and cutting reporting time by 6+ hours/month, and partnered with engineering teams to validate cost drivers and support AI automation initiatives.",
   },
   {
     id: "experience-cbs",
-    tags: ["cbs", "creative business", "agentic", "agi", "current", "contract", "devops", "azure"],
+    tags: ["cbs", "creative business", "agentic", "agi", "contract", "devops", "azure"],
     text:
-      "At Creative Business Solutions, Inc. (Nov 2025–Present), Rikin works as an Agentic AI Developer (Contract). He leads requirements gathering and system architecture for AGI-aligned automation platforms, translating decision workflows into orchestrated multi-agent pipelines, model API interfaces, and scalable DevOps-ready deployments. He manages Jira and Azure DevOps boards, integrated 5+ enterprise data sources into cloud environments powering agentic reasoning, and reduced end-to-end deployment latency by 15% through DevOps optimization.",
+      "At Creative Business Solutions, Inc. (Nov 2025–Mar 2026), Rikin worked as an Agentic AI Developer (Contract). He led requirements gathering and system architecture for AGI-aligned automation platforms, translating decision workflows into orchestrated multi-agent pipelines, model API interfaces, and scalable DevOps-ready deployments. He managed Jira and Azure DevOps boards, integrated 5+ enterprise data sources into cloud environments powering agentic reasoning, and reduced end-to-end deployment latency by 15% through DevOps optimization.",
   },
   {
     id: "experience-enterprise",
@@ -101,9 +107,9 @@ const KNOWLEDGE: KnowledgeEntry[] = [
   },
   {
     id: "certifications",
-    tags: ["certification", "csm", "aws", "databricks", "scrum", "pmp", "mern"],
+    tags: ["certification", "csm", "aws", "databricks", "scrum", "pmp", "mern", "focp", "finops"],
     text:
-      "Rikin holds: Certified Scrum Master (CSM), PMI GenAI for Project Managers, PMP (In-Progress), Leading Agile Teams with Jira, AWS Cloud Architecting, AWS Cloud Operations, Databricks Fundamentals, SAP Fundamentals, MERN Stack certification, and Git/GitHub Version Control certification.",
+      "Rikin holds: FOCP (FinOps Certified Practitioner - AI Value), Certified Scrum Master (CSM), PMI GenAI for Project Managers, PMP (In-Progress), Leading Agile Teams with Jira, AWS Cloud Architecting, AWS Cloud Operations, Databricks Fundamentals, SAP Fundamentals, MERN Stack certification, and Git/GitHub Version Control certification.",
   },
   {
     id: "awards",
@@ -125,9 +131,9 @@ const KNOWLEDGE: KnowledgeEntry[] = [
   },
   {
     id: "contact",
-    tags: ["contact", "email", "github", "linkedin", "reach", "hire", "opportunity", "location", "relocate", "tempe", "arizona"],
+    tags: ["contact", "email", "github", "linkedin", "reach", "hire", "opportunity", "location", "relocate", "san francisco", "california"],
     text:
-      "Rikin is currently based in Tempe, Arizona and is open to relocating for the right opportunity. The best way to reach him is at rshah88@asu.edu or phone 917-238-5682. Find him on GitHub (github.com/Rikinshah787, 26 public repos), LinkedIn (linkedin.com/in/rikinshah787, 2,900+ connections), and his website rikin.tech. He is actively seeking full-time opportunities. Visitors can also scroll to the Contact section on this portfolio page or download his resume.",
+      "Rikin is currently based in San Francisco, CA and is open to relocating for the right opportunity. The best way to reach him is at rshah88@asu.edu or phone 917-238-5682. Find him on GitHub (github.com/Rikinshah787, 26 public repos), LinkedIn (linkedin.com/in/rikinshah787, 2,900+ connections), and his website rikin.tech. He is actively seeking full-time opportunities. Visitors can also scroll to the Contact section on this portfolio page or download his resume.",
   },
 ];
 
@@ -143,9 +149,9 @@ const FALLBACK_ANSWERS: Record<string, string> = {
   chess:
     "Rikin is a USCF-rated 1792 chess player and founder of SmartKid Academy, where he's coached 200+ students with a team of 6 instructors.",
   contact:
-    "You can reach Rikin at rikinshah787@gmail.com, or find him on GitHub (Rikinshah787) and LinkedIn (rikinshah787).",
+    "You can reach Rikin at rshah88@asu.edu or 917-238-5682, or find him on GitHub (Rikinshah787) and LinkedIn (rikinshah787).",
   hire:
-    "Rikin is a creative builder who combines engineering depth with project management skills. He'd love to discuss opportunities — drop him a line at rikinshah787@gmail.com!",
+    "Rikin is a creative builder who combines engineering depth with project management skills. He'd love to discuss opportunities — drop him a line at rshah88@asu.edu!",
   about:
     "Rikin Shah is a Creative Builder, Project Manager, and Engineer. He's passionate about building things that solve real problems, from GenAI agents to chess education platforms.",
   deloitte:
@@ -157,7 +163,7 @@ const FALLBACK_ANSWERS: Record<string, string> = {
   reachai:
     "ReachAI is a multi-agent outbound automation system built with Groq LLM, Hunter.io, and SMTP — automating intelligent outreach at scale.",
   certification:
-    "Rikin holds certifications in Scrum (CSM), AWS (2x Academy), Databricks Fundamentals, and Generative AI for PMs.",
+    "Rikin holds FOCP (FinOps Certified Practitioner), Scrum (CSM), AWS (2x Academy), Databricks Fundamentals, and Generative AI for PMs.",
 };
 
 function buildKnowledgeContext(userText: string): string {
